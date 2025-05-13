@@ -1,0 +1,8 @@
+https://n-c.iwedding.info/ -O ./my_wedding_clone -r2 -c8 -%v -F "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0" -c4 -%k -s0
+File generated automatically on Fri, 02 May 2025 23:47:23, do NOT edit
+
+To update a mirror, just launch httrack without any parameters
+The existing cache will be used (and modified)
+To have other options, retype all parameters and launch HTTrack
+To continue an interrupted mirror, just launch httrack without any parameters
+

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sổ Lưu Bút</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic Reset & Body Styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif; /* Font chuẩn cho nội dung */
+            background-color: #fdfdf8; /* Màu nền hơi ngà nhẹ */
+            color: #5a5a5a; /* Màu chữ chính */
+            line-height: 1.6;
+            padding: 20px;
+            /* Texture nền nhẹ nhàng giống ảnh - bạn có thể thay đổi url nếu cần */
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEpSURBVGhD7ZfBDYAwEMN6NkE2YAO2AfsRbAN2YBuwARuwgU1BMkGF9KQB98v+CPQx+RMEAAAAAAALwM28yL59XQYg2pAfkQ8kQvwh+YhEJD9EHpCIfCQfkYjEI/IRI4RpJEIkIfmIRCQ+QhUJRqQhG0hENpCMBCQjGQlI9oRKRBITjcQkExOpjEQmM5mYSiSzB01kMhONZCQzmciMZJILmkjGNDIQmWQkM5nIdGaSkcwkleYzg7/4AZUlRXL8hGxJkWy/kDVpkn+/klZpkvUvZJUmWe8lK1SS7X9kBSrJ+hfSA4Vk/QppQSE5/0J6UEguvpAeFJKLL6QnhSTjC+kNIfm4QtJDCDE+QFpISC4+kN4TksYvpDeEJKML6Q0hyaRCekMIMSoBAAAAAADs+w/k2sa85vqzjgAAAABJRU5ErkJggg==');
+        }
+
+        /* Guestbook Container */
+        .guestbook-container {
+            max-width: 550px; /* Giảm chiều rộng một chút */
+            margin: 40px auto;
+            padding: 45px 35px; /* Tăng padding */
+            background-color: #ffffff;
+            border: 1px solid #e0cfb8; /* Viền ngoài nhạt */
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+            position: relative;
+        }
+
+        /* Container Border Frame Effect (Inner frame) */
+        .guestbook-container::before {
+            content: '';
+            position: absolute;
+            top: 12px; /* Khoảng cách từ viền ngoài */
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 1px solid #e0cfb8; /* Viền trong cũng nhạt */
+            pointer-events: none;
+        }
+
+        /* Title */
+        h2 {
+            font-family: 'Playfair Display', serif; /* Font chữ nghệ thuật cho tiêu đề */
+            text-align: center;
+            color: #b88b4a; /* Màu vàng đồng đậm */
+            font-size: 2.8em; /* Tăng kích thước tiêu đề */
+            margin-bottom: 10px;
+            font-weight: 500; /* Độ đậm vừa phải */
+        }
+
+        /* Decorative Element */
+        .decorator {
+            width: 50px; /* Tăng kích thước decorator */
+            height: 20px;
+             /* SVG chính xác hơn cho các hình thoi */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='20' viewBox='0 0 50 20'%3E%3Cpath d='M15 10 L17.5 7 L20 10 L17.5 13 Z M25 10 L27.5 7 L30 10 L27.5 13 Z M35 10 L37.5 7 L40 10 L37.5 13 Z' fill='none' stroke='%23b88b4a' stroke-width='1.2'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0 auto 35px auto; /* Tăng khoảng cách dưới */
+        }
+
+        /* Form Styling */
+        .guestbook-form {
+            margin-bottom: 45px; /* Tăng khoảng cách dưới form */
+        }
+
+        .form-group {
+            margin-bottom: 18px; /* Tăng khoảng cách giữa các input */
+            position: relative;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 13px 18px; /* Tăng padding trong input */
+            border: 1px solid #ececec; /* Viền input rất nhạt */
+            border-radius: 3px; /* Bo góc nhẹ */
+            font-size: 0.95rem; /* Kích thước font nhỏ hơn chút */
+            font-family: inherit;
+            color: #333;
+            background-color: #fff; /* Nền trắng */
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #d4bfa9; /* Đổi màu viền khi focus */
+        }
+
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #b0b0b0; /* Màu placeholder nhạt hơn */
+            font-style: italic;
+            font-weight: 300; /* Font weight nhẹ cho placeholder */
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px; /* Tăng chiều cao tối thiểu */
+            padding-right: 55px; /* Chừa khoảng trống cho icon */
+        }
+
+        /* Icons inside textarea */
+        .textarea-icons {
+            position: absolute;
+            bottom: 12px;
+            right: 15px;
+            display: flex;
+            gap: 8px; /* Khoảng cách giữa các icon */
+        }
+        .textarea-icons span {
+            cursor: pointer;
+            opacity: 0.6;
+            font-size: 1.3em;
+            color: #999;
+        }
+        .textarea-icons span:hover {
+            opacity: 1;
+        }
+
+        /* Submit Button */
+        .submit-button {
+            display: block;
+            margin: 25px auto 0 auto; /* Căn giữa, tăng margin top */
+            padding: 11px 30px; /* Điều chỉnh padding */
+            background-color: transparent;
+            border: 1px solid #b88b4a; /* Viền đậm hơn */
+            color: #b88b4a; /* Màu chữ đậm */
+            font-size: 0.9rem;
+            font-weight: 500; /* Hơi đậm hơn */
+            text-transform: uppercase;
+            letter-spacing: 0.5px; /* Giãn cách chữ nhẹ */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            outline: none;
+            border-radius: 2px; /* Bo góc nhẹ cho button */
+        }
+
+        /* Button Outer Frame Effect */
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: -5px; /* Tăng khoảng cách viền ngoài */
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 1px solid #e0cfb8; /* Viền ngoài nhạt hơn */
+            pointer-events: none;
+            border-radius: 4px; /* Bo góc cho viền ngoài */
+        }
+
+        .submit-button:hover {
+            background-color: #fefaf4; /* Nền hơi vàng nhẹ khi hover */
+            color: #a0783f;
+            border-color: #a0783f;
+        }
+        .submit-button:active {
+             background-color: #fcefdc;
+        }
+
+        /* Messages List Styling */
+        .messages-list {
+            margin-top: 35px; /* Tăng khoảng cách trên danh sách lời chúc */
+            padding-left: 5px; /* Thụt lề nhẹ */
+            padding-right: 5px;
+        }
+
+        .message-entry {
+            padding-bottom: 18px; /* Tăng padding dưới mỗi lời chúc */
+            margin-bottom: 18px; /* Tăng margin dưới */
+            border-bottom: 1px dashed #e0cfb8; /* Viền dashed nhạt */
+        }
+
+        .message-entry:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .message-author {
+            font-weight: 500; /* Hơi đậm cho tên tác giả */
+            color: #444;
+            margin-bottom: 6px; /* Khoảng cách dưới tên */
+            font-size: 0.98rem;
+        }
+
+        .message-text {
+            color: #5a5a5a; /* Màu chữ lời chúc */
+            font-size: 0.92rem; /* Kích thước font lời chúc */
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-weight: 400; /* Font weight bình thường */
+        }
+
+        .heart-emoji {
+             color: #e74c3c;
+             font-style: normal;
+             font-size: 1em; /* Kích thước trái tim */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="guestbook-container">
+        <h2>Sổ Lưu Bút</h2>
+        <div class="decorator"></div>
+
+        <form class="guestbook-form" action="#" method="post"> <!-- Thêm action và method nếu cần -->
+            <div class="form-group">
+                <input type="text" id="name" name="name" placeholder="Tên của bạn*" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="E-mail">
+            </div>
+            <div class="form-group">
+                <textarea id="message" name="message" rows="5" placeholder="Nhập lời chúc của bạn*" required></textarea>
+                <div class="textarea-icons">
+                    <span>☺️</span>
+                    <span>🙂</span>
+                </div>
+            </div>
+            <button type="submit" class="submit-button">GỬI LỜI CHÚC</button>
+        </form>
+
+        <div class="messages-list">
+            <div class="message-entry">
+                <p class="message-author">Anh Duy CES</p>
+                <p class="message-text">Chúc hai em trăm hạnh phúc, sớm có baby nha.</p>
+            </div>
+            <div class="message-entry">
+                <p class="message-author">A Cuong FS</p>
+                <p class="message-text">Chúc 2 em hạnh phúc đến răng lông đầu bạc nhen, sự nghiệp ngày càng thăng tiến sau khi về chung 1 nhà</p>
+            </div>
+             <div class="message-entry">
+                <p class="message-author">A Duy</p>
+                <p class="message-text">Em trai đã lớn rồi, cuối cùng cũng đến lúc có một mái nhà, một gia đình riêng của mình. Chúc em một đời an yên bên cạnh người mà em yêu thương. <span class="heart-emoji">❤️</span></p>
+            </div>
+             <div class="message-entry">
+                <p class="message-author">Gia đình bé Sầu Riêng</p>
+                <p class="message-text">Gia đình em bé Sầu Riêng mừng hạnh phúc cậu mợ nhé! Anh chị chúc vợ chồng 2 em mãi an vui, và sớm có thiên thần nhỏ làm bạn với Sầu Riêng nhé!</p>
+            </div>
+            <!-- Add more message entries here as needed -->
+        </div>
+    </div>
+
+</body>
+</html> 

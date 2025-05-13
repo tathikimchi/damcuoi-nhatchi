@@ -1,0 +1,4 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+n-c.iwedding.info	TRUE	/	FALSE	1999999999	PHPSESSID	2pvogj4da6uvebto54lighr7h7
+

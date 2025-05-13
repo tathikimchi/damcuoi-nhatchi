@@ -1,0 +1,11 @@
+HTTrack3.49-5 launched on Fri, 02 May 2025 23:47:23 at https://n-c.iwedding.info/
+(httrack https://n-c.iwedding.info/ -O ./my_wedding_clone -r2 -c8 -%v -F "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0" -c4 -%k -s0 )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+
+HTTrack Website Copier/3.49-5 mirror complete in 14 seconds : 13 links scanned, 13 files written (1430211 bytes overall) [408644 bytes received at 29188 bytes/sec], 1430211 bytes transferred using HTTP compression in 13 files, ratio 28%, 4.3 requests per connection
+(No errors, 0 warnings, 0 messages)
