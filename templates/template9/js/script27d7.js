@@ -1,6 +1,6 @@
 (function($) {
 
-	"use strict";
+    "use strict";
 
 
     /*------------------------------------------
@@ -16,30 +16,30 @@
     }
 
     if ($("#donate-modal").length && $(".buttonDonate").length  && $(".donate-modal-close").length) {
-		$(document).on('click','.buttonDonate',function(){
-			$("#donate-modal").show();
-		});
-		$(document).on('click','.donate-modal-close',function(){
-			$("#donate-modal").hide();
-		});
-		$(document).on('click','body',function(e){
-			if(e.target.id == $("#donate-modal").attr('id')) { $("#donate-modal").hide(); }
-		});
-	}
-	
-	$(document).on('click', '#donate-modal .crypto-item', function(){
-		let parent = $(this).parents('.donate-card');
-		parent.find('.cryptos-box-view').show();
-		parent.find('.cryptos-box-view .coin-img').html('<img src="'+$(this).data('img')+'" />');
-		parent.find('.cryptos-box-view .coin-id').html($(this).data('id'));
-		parent.find('.cryptos-box-view .coin-address').html($(this).data('address'));
-		parent.find('.cryptos-box-view .coin-qr-code').html('').qrcode({width: 160,height: 160,text: $(this).data('address')});
-	});
-	
-	$(document).on('click', '#donate-modal .cryptos-box-view-close', function(){
-		let parent = $(this).parents('.donate-card');
-		parent.find('.cryptos-box-view').hide();
-	});
+        $(document).on('click','.buttonDonate',function(){
+            $("#donate-modal").show();
+        });
+        $(document).on('click','.donate-modal-close',function(){
+            $("#donate-modal").hide();
+        });
+        $(document).on('click','body',function(e){
+            if(e.target.id == $("#donate-modal").attr('id')) { $("#donate-modal").hide(); }
+        });
+    }
+    
+    $(document).on('click', '#donate-modal .crypto-item', function(){
+        let parent = $(this).parents('.donate-card');
+        parent.find('.cryptos-box-view').show();
+        parent.find('.cryptos-box-view .coin-img').html('<img src="'+$(this).data('img')+'" />');
+        parent.find('.cryptos-box-view .coin-id').html($(this).data('id'));
+        parent.find('.cryptos-box-view .coin-address').html($(this).data('address'));
+        parent.find('.cryptos-box-view .coin-qr-code').html('').qrcode({width: 160,height: 160,text: $(this).data('address')});
+    });
+    
+    $(document).on('click', '#donate-modal .cryptos-box-view-close', function(){
+        let parent = $(this).parents('.donate-card');
+        parent.find('.cryptos-box-view').hide();
+    });
 
     // Toggle mobile navigation
     function toggleMobileNavigation() {
@@ -429,30 +429,34 @@
     -------------------------------------------*/
     if ($("#clock").length) {
         function timeElapse(date){
-            var current = Date();
-            var seconds = (Date.parse(current) - Date.parse(date)) / 1000;
+            var current = new Date();
+            var target = new Date(date);
+            var seconds = Math.floor((current.getTime() - target.getTime()) / 1000);
+            var isPast = seconds > 0;
+            seconds = Math.abs(seconds);
             var days = Math.floor(seconds / (3600 * 24));
-            if (days < 10) {
-                days = "0" + days;
-            }
             seconds = seconds % (3600 * 24);
             var hours = Math.floor(seconds / 3600);
-            if (hours < 10) {
-                hours = "0" + hours;
-            }
             seconds = seconds % 3600;
             var minutes = Math.floor(seconds / 60);
-            if (minutes < 10) {
-                minutes = "0" + minutes;
-            }
             seconds = seconds % 60;
-            if (seconds < 10) {
-                seconds = "0" + seconds;
+            // Format 2 số
+            days = days < 10 ? '0' + days : days;
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            var html = '';
+            if (isPast) {
+                html += '<div class="box"><div>-' + days + '</div> <span>'+ $('#clock').data('text-day') +'</span> </div>';
+            } else {
+                html += '<div class="box"><div>' + days + '</div> <span>'+ $('#clock').data('text-day') +'</span> </div>';
             }
-            var html = '<div class="box"><div>' + days + '</div> <span>'+ $('#clock').data('text-day') +'</span> </div><div class="box"><div>' + hours + '</div> <span>'+ $('#clock').data('text-hour') +'</span> </div><div class="box"><div>' + minutes + '</div> <span>'+ $('#clock').data('text-minute') +'</span> </div><div class="box"><div>' + seconds + '</div> <span>'+ $('#clock').data('text-second') +'</span> </div>';
+            html += '<div class="box"><div>' + hours + '</div> <span>'+ $('#clock').data('text-hour') +'</span> </div>';
+            html += '<div class="box"><div>' + minutes + '</div> <span>'+ $('#clock').data('text-minute') +'</span> </div>';
+            html += '<div class="box"><div>' + seconds + '</div> <span>'+ $('#clock').data('text-second') +'</span> </div>';
             $('#clock').html(html);
         }
-		var time = $('#clock').data('date');
+        var time = $('#clock').data('date');
         $('#clock').countdown(time.replace(/-/g,'/'), function(event) {
             if(event.type == 'stoped'){
                 var together = new Date($('#clock').data('date'));           
@@ -473,8 +477,8 @@
         });
     }
 
-	
-	if ($("#wish-form").length) {
+    
+    if ($("#wish-form").length) {
         $("#wish-form").validate({
             rules: {
                 name: {
@@ -491,12 +495,12 @@
                 },
             },
             errorPlacement: function(error, element) {
-				if (element.attr("name") == "content" ) {
-				  error.insertAfter("#wish-form .vitualTextarea");
-				} else {
-				  error.insertAfter(element);
-				}
-			},
+                if (element.attr("name") == "content" ) {
+                  error.insertAfter("#wish-form .vitualTextarea");
+                } else {
+                  error.insertAfter(element);
+                }
+            },
             messages: {
                 name: {
                     required: 'Vui lòng nhập tên của bạn.',
@@ -944,7 +948,7 @@
     ==========================================================================*/
     $(window).on("scroll", function() {
 
-		if ($(".site-header").length) {
+        if ($(".site-header").length) {
             stickyMenu( $('.site-header .navigation'), "sticky-on" );
         }
 
@@ -988,11 +992,11 @@
         $('ul.list-menu-icon').css('opacity','1');
     }, 3000); 
     $( window ).on("load", function(){
-		if($('.bii-logo').length > 0){
-			$('#menu-access').css('bottom','278px');
-			document.querySelector('style').textContent += "@media (max-width: 799px){#menu-access{bottom: 238px!important;}}"
-		} 
-	})
+        if($('.bii-logo').length > 0){
+            $('#menu-access').css('bottom','278px');
+            document.querySelector('style').textContent += "@media (max-width: 799px){#menu-access{bottom: 238px!important;}}"
+        } 
+    })
     function shakeTooltip(){
         var arrTooltip = $('ul.list-menu-icon').children();
         arrTooltip.each(function(index) {
@@ -1022,20 +1026,20 @@
     });
 
     // ALBUM GALLERIES
-	$(document).on('click', '.btn-see-more-gallery', function(e){
-		e.preventDefault();
-		let indexNumber = $(this).data('index') || 0;
-		$(this).lightGallery({
-		thumbnail: true,
-		dynamic: true,
-		dynamicEl: photoGalleries,
-		download: false,
-		autoplay: true,
-		preload: 2,
-		appendSubHtmlTo: '.lg-item',
-		index: parseInt(indexNumber)
-		});
-	});
+    $(document).on('click', '.btn-see-more-gallery', function(e){
+        e.preventDefault();
+        let indexNumber = $(this).data('index') || 0;
+        $(this).lightGallery({
+        thumbnail: true,
+        dynamic: true,
+        dynamicEl: photoGalleries,
+        download: false,
+        autoplay: true,
+        preload: 2,
+        appendSubHtmlTo: '.lg-item',
+        index: parseInt(indexNumber)
+        });
+    });
 
     $(document).on('click', '.qr-code-image', function(){
         let srcImage = $(this).attr('src');
